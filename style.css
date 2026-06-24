@@ -1,0 +1,959 @@
+/* ==============================
+   MATHTYPE PWA — STYLE.CSS
+   Design: Deep Space + Violet
+   ============================== */
+
+:root {
+  --bg-base:       #0d0d1a;
+  --bg-surface:    #13132b;
+  --bg-raised:     #1a1a3a;
+  --bg-hover:      #22224a;
+  --bg-active:     #2a2a5a;
+
+  --accent:        #7c6aff;
+  --accent-bright: #a193ff;
+  --accent-glow:   rgba(124,106,255,0.25);
+
+  --text-primary:  #e8e8f8;
+  --text-secondary:#9494b8;
+  --text-muted:    #5a5a7a;
+  --text-accent:   #c5bbff;
+
+  --border:        rgba(255,255,255,0.07);
+  --border-bright: rgba(124,106,255,0.4);
+
+  --success:       #4ade80;
+  --error:         #f87171;
+  --warning:       #fbbf24;
+
+  --font-ui:       'Inter', 'Noto Sans Lao', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', 'Courier New', monospace;
+
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,0.6);
+  --shadow-glow:   0 0 20px rgba(124,106,255,0.3);
+
+  --header-h:      52px;
+  --toolbar-h:     auto;
+  --panel-w:       200px;
+  --examples-w:    188px;
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+  --bg-base:       #f4f4fb;
+  --bg-surface:    #ffffff;
+  --bg-raised:     #f0f0ff;
+  --bg-hover:      #e8e8ff;
+  --bg-active:     #ddddf8;
+
+  --text-primary:  #1a1a3a;
+  --text-secondary:#4a4a7a;
+  --text-muted:    #9494b8;
+  --text-accent:   #5544cc;
+
+  --border:        rgba(0,0,0,0.08);
+  --border-bright: rgba(100,80,220,0.4);
+
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.12);
+  --shadow-glow:   0 0 20px rgba(100,80,220,0.15);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 14px; height: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ===== INSTALL BANNER ===== */
+.install-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #4c1d95, #6c63ff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+}
+.install-banner.hidden { display: none; }
+
+.btn-install {
+  background: white;
+  color: #4c1d95;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+}
+.btn-dismiss {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+  height: var(--header-h);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.header-right { justify-content: flex-end; }
+.header-center { flex: 2; display: flex; justify-content: center; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.doc-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--border-bright);
+  padding: 2px 8px;
+  border-radius: 4px;
+  outline: none;
+  min-width: 120px;
+  text-align: center;
+  cursor: text;
+}
+.doc-title:focus {
+  color: var(--text-primary);
+  border-color: var(--accent);
+  background: var(--bg-raised);
+}
+
+.hbtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-ui);
+}
+.hbtn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-bright);
+}
+
+.theme-toggle {
+  font-size: 16px;
+  padding: 5px 8px;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.app-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - var(--header-h));
+}
+
+/* ===== SYMBOL PANEL — Slide-in Drawer ===== */
+
+/* Overlay — ກົດນອກເພື່ອປິດ panel */
+.symbol-panel-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 149;
+  background: transparent;
+  backdrop-filter: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.symbol-panel-overlay.visible {
+  display: block;
+  opacity: 1;
+}
+
+.symbol-panel {
+  width: var(--panel-w);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 150;
+  transition: width 0.26s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.22s ease,
+              border 0.26s ease;
+}
+
+/* ປິດ: width = 0 */
+.symbol-panel.collapsed {
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-right: none;
+}
+
+/* panel-header: flex row ສຳລັບ X button */
+.panel-header {
+  padding: 10px 12px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+/* ປຸ່ມ X ໃນ panel-header */
+.panel-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  transition: background 0.12s, color 0.12s;
+  flex-shrink: 0;
+}
+.panel-close-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ປຸ່ມ hamburger ເມື່ອ panel ເປີດຢູ່ */
+.symbol-toggle.panel-open {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+
+.symbol-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.stab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  text-align: left;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.12s;
+  font-family: var(--font-ui);
+}
+.stab:hover { background: var(--bg-raised); color: var(--text-primary); }
+.stab.active {
+  background: var(--accent-glow);
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+.symbol-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  align-content: start;
+}
+.symbol-grid::-webkit-scrollbar { width: 4px; }
+.symbol-grid::-webkit-scrollbar-track { background: transparent; }
+.symbol-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.sym-btn {
+  aspect-ratio: 1;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+  position: relative;
+  font-family: var(--font-mono);
+}
+.sym-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+  transform: scale(1.05);
+  z-index: 2;
+}
+.sym-btn:active { transform: scale(0.95); }
+
+/* ===== EDITOR AREA ===== */
+.editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Structure Toolbar */
+.structure-toolbar {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.structure-toolbar::-webkit-scrollbar { height: 3px; }
+.structure-toolbar::-webkit-scrollbar-thumb { background: var(--border); }
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding-right: 8px;
+  border-right: 1px solid var(--border);
+}
+.toolbar-group:last-child { border-right: none; }
+
+.toolbar-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-right: 3px;
+}
+
+.tbtn {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 3px 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+  line-height: 1;
+  font-family: var(--font-mono);
+  min-height: 28px;
+}
+.tbtn .katex { font-size: 11px !important; }
+.tbtn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+/* Editor Block */
+.editor-block {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.editor-top-bar, .preview-top-bar, .history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-label, .preview-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--text-muted);
+}
+
+.editor-actions, .preview-modes {
+  display: flex;
+  gap: 4px;
+}
+
+.eabtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: var(--font-ui);
+}
+.eabtn:hover {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+}
+
+.latex-input-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 8px 12px;
+}
+
+.latex-dollar {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 8px 6px 0;
+  user-select: none;
+  line-height: 1;
+}
+
+.latex-input {
+  flex: 1;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: 'Noto Sans Lao', var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 10px 14px;
+  resize: none;
+  min-height: 70px;
+  max-height: 140px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.latex-input::placeholder { color: var(--text-muted); }
+.latex-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Preview Block */
+.preview-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.pmb {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+}
+.pmb.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zbtn {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.zbtn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+#zoom-level {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 36px;
+  text-align: center;
+}
+
+.preview-canvas {
+  flex: 1;
+  overflow: hidden;
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(124,106,255,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(124,106,255,0.03) 0%, transparent 50%);
+}
+
+/* Math Editor Wrapper */
+.math-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  gap: 10px;
+}
+
+/* MathLive math-field */
+math-field {
+  display: block;
+  width: 100%;
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text-primary);
+  font-size: 1.5em;
+  padding: 10px;
+  box-shadow: none;
+  transition: box-shadow 0.2s;
+  cursor: text;
+  outline: none;
+  overflow: auto; /* ສະແດງ scrollbar ເມື່ອສູດຍາວ */
+  min-height: 0;
+  --caret-color: var(--accent-bright);
+  --selection-background-color: var(--accent-glow);
+  --selection-color: var(--accent-bright);
+  --smart-fence-color: var(--accent);
+  --contains-highlight-background-color: var(--bg-hover);
+  --highlight-background-color: var(--bg-active);
+  /* ໃຊ້ Noto Sans Lao ເພື່ອຮອງຮັບການພິມພາສາລາວ */
+  --text-font-family: 'Noto Sans Lao', 'Noto Serif Lao',
+    'STIX Two Math', 'Latin Modern Math',
+    'Inter', system-ui, sans-serif;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ບັງຄັບ font ພາສາລາວໃຫ້ render ຖືກຕ້ອງໃນທຸກ part ຂອງ math-field */
+math-field::part(container),
+math-field::part(content) {
+  font-family: 'Noto Sans Lao', 'Inter', system-ui, sans-serif;
+}
+
+/* Lao text atoms inside MathLive */
+math-field .ML__text {
+  font-family: 'Noto Sans Lao', 'Inter', system-ui, sans-serif !important;
+}
+
+/* ຮອງຮັບ unicode range ພາສາລາວ (U+0E80–U+0EFF) */
+@font-face {
+  font-family: 'Lao-Fallback';
+  src: local('Noto Sans Lao'), local('Noto Serif Lao'), local('DokChampa');
+  unicode-range: U+0E80-U+0EFF;
+}
+
+math-field:focus, math-field:focus-within {
+  box-shadow: inset 0 0 0 2px var(--accent-glow);
+}
+
+math-field.inline-mode {
+  min-height: 48px;
+  font-size: 1.1em;
+  padding: 12px 20px;
+  text-align: left;
+}
+
+/* Math field placeholder and container */
+math-field::part(container) {
+  min-height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Hint text below math-field */
+.math-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  opacity: 0.8;
+}
+.math-hint code {
+  font-family: var(--font-mono);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 10px;
+  color: var(--accent-bright);
+}
+
+.preview-placeholder {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.preview-status {
+  padding: 4px 14px;
+  font-size: 11px;
+  min-height: 22px;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+}
+.preview-status.error { color: var(--error); }
+.preview-status.success { color: var(--success); }
+
+/* KaTeX overrides (toolbar buttons still use KaTeX) */
+.tbtn .katex-display {
+  margin: 0 !important;
+  overflow: visible;
+}
+.tbtn .katex {
+  color: var(--text-primary);
+}
+
+/* History Block */
+.history-block {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  max-height: 130px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.history-header {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--text-muted);
+}
+.history-list {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  flex: 1;
+  align-items: center;
+}
+.history-list::-webkit-scrollbar { height: 3px; }
+.history-list::-webkit-scrollbar-thumb { background: var(--border); }
+.history-empty {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+.history-item {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.history-item:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+/* ===== EXAMPLES PANEL — Slide-in Drawer ===== */
+
+/* Overlay — ກົດນອກເພື່ອປິດ panel */
+.examples-panel-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 149;
+  background: transparent;
+  backdrop-filter: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.examples-panel-overlay.visible {
+  display: block;
+  opacity: 1;
+}
+
+.examples-panel {
+  width: var(--examples-w);
+  background: var(--bg-surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 150;
+  transition: width 0.26s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.22s ease,
+              border 0.26s ease;
+}
+
+/* ປິດ: width = 0 */
+.examples-panel.collapsed {
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-left: none;
+}
+
+/* ປຸ່ມ hamburger ເມື່ອ panel ເປີດຢູ່ */
+.examples-toggle.panel-open {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+.example-section {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ex-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  padding: 2px 0;
+}
+.exbtn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  text-align: left;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.12s;
+  font-family: var(--font-ui);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exbtn:hover {
+  background: var(--accent-glow);
+  color: var(--accent-bright);
+}
+
+/* Scrollable sections */
+.examples-panel {
+  overflow-y: auto;
+}
+.examples-panel::-webkit-scrollbar { width: 3px; }
+.examples-panel::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  font-size: 13px;
+  box-shadow: var(--shadow-lg);
+  z-index: 9999;
+  transition: opacity 0.3s, transform 0.3s;
+  backdrop-filter: blur(12px);
+}
+.toast.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* ===== OFFLINE BAR ===== */
+.offline-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--warning);
+  color: #000;
+  text-align: center;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 500;
+}
+.offline-bar.hidden { display: none; }
+
+/* ===== SCROLLBAR global ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== TRANSITIONS ===== */
+.examples-panel, .editor-area,
+.preview-canvas, .history-block {
+  transition: background 0.3s;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  /* ໃນຈໍນ້ອຍ: examples panel ເປັນ fixed overlay ດ້ານຂວາ */
+  .examples-panel {
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    height: calc(100vh - var(--header-h));
+    width: var(--examples-w) !important;
+    transform: translateX(100%);
+    transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+    box-shadow: var(--shadow-lg);
+    opacity: 1;
+    border-left: 1px solid var(--border);
+  }
+  .examples-panel.collapsed {
+    transform: translateX(100%);
+    opacity: 0;
+    width: var(--examples-w) !important;
+  }
+  .examples-panel:not(.collapsed) {
+    transform: translateX(0);
+  }
+}
+@media (max-width: 650px) {
+  /* ໃນຈໍນ້ອຍ: symbol panel ເປັນ fixed overlay ດ້ານຊ້າຍ */
+  .symbol-panel {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    bottom: 0;
+    height: calc(100vh - var(--header-h));
+    width: var(--panel-w) !important; /* override collapsed width transition */
+    transform: translateX(-100%);
+    transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+    box-shadow: var(--shadow-lg);
+    opacity: 1;
+  }
+  .symbol-panel.collapsed {
+    transform: translateX(-100%);
+    opacity: 0;
+    width: var(--panel-w) !important;
+    border-right: 1px solid var(--border);
+  }
+  /* ເມື່ອ panel ເປີດ — reset transform */
+  .symbol-panel:not(.collapsed) {
+    transform: translateX(0);
+  }
+  .structure-toolbar { padding: 4px 6px; }
+}
+@media (max-width: 500px) {
+  .header-center { display: none; }
+}
+
+/* ===== KaTeX size in math-field ===== */
+math-field { --font-size: 1.4em; }
+math-field.inline-mode { font-size: 1.1em; }
+
+/* ===== SELECTION highlight ===== */
+::selection { background: var(--accent-glow); color: var(--accent-bright); }
+
+/* ===== FOCUS visible ===== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+button:focus-visible { outline: 2px solid var(--accent); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+math-field {
+  animation: fadeIn 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
