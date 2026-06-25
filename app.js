@@ -464,23 +464,49 @@ function showUpdateToast() {
 }
 
 // ===== THEME =====
+let currentThemeMode = 'dark'; // 'light' | 'dark' | 'auto'
+
 function initTheme() {
-  const saved = localStorage.getItem('mathtype-theme') || 'dark';
+  const saved = localStorage.getItem('mathtype-theme') || 'auto';
   setTheme(saved, false);
+  
+  // ຟັງການປ່ຽນແປງຈາກ System
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (currentThemeMode === 'auto') {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
 }
 
-function setTheme(theme, save = true) {
-  document.documentElement.dataset.theme = theme === 'light' ? 'light' : '';
+function applyTheme(actualTheme) {
+  document.documentElement.dataset.theme = actualTheme === 'light' ? 'light' : '';
+  applyMathFieldTheme(actualTheme);
+}
+
+function setTheme(mode, save = true) {
+  currentThemeMode = mode;
   const btn = document.getElementById('theme-toggle');
-  btn.textContent = theme === 'light' ? '☀️' : '🌙';
-  // Apply theme to math-field
-  applyMathFieldTheme(theme);
-  if (save) localStorage.setItem('mathtype-theme', theme);
+  
+  if (mode === 'light') {
+    btn.textContent = '☀️';
+    btn.title = 'ປ່ຽນ Theme (ສະຫວ່າງ)';
+    applyTheme('light');
+  } else if (mode === 'dark') {
+    btn.textContent = '🌙';
+    btn.title = 'ປ່ຽນ Theme (ມືດ)';
+    applyTheme('dark');
+  } else {
+    btn.textContent = '🌗';
+    btn.title = 'ປ່ຽນ Theme (ອັດຕະໂນມັດ)';
+    const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(isSysDark ? 'dark' : 'light');
+  }
+  
+  if (save) localStorage.setItem('mathtype-theme', mode);
 }
 
 function applyMathFieldTheme(theme) {
   if (!mathEditor) return;
-  // ເນີນວ່າ Noto Sans Lao ຖືກໃຊ້ໃນທຸກ theme
   const laoFontStack = "'Noto Sans Lao', 'Noto Serif Lao', 'STIX Two Math', 'Latin Modern Math', 'Inter', system-ui, sans-serif";
   mathEditor.style.setProperty('--text-font-family', laoFontStack);
   if (theme === 'light') {
@@ -491,8 +517,13 @@ function applyMathFieldTheme(theme) {
 }
 
 function toggleTheme() {
-  const cur = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-  setTheme(cur);
+  if (currentThemeMode === 'light') {
+    setTheme('dark');
+  } else if (currentThemeMode === 'dark') {
+    setTheme('auto');
+  } else {
+    setTheme('light');
+  }
 }
 
 // ===== PWA INSTALL =====
