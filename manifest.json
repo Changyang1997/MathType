@@ -1,5 +1,5 @@
 {
-  "name": "MathType PWA",
+  "name": "MathType",
   "short_name": "MathType",
   "description": "ຕົວແກ້ໄຂສົມຜົນຄະນິດສາດດ້ວຍ LaTeX — Mathematical Equation Editor",
   "start_url": "./index.html",
