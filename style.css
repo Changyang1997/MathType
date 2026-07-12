@@ -937,6 +937,84 @@ math-field::part(container) {
   .header-center { display: none; }
 }
 
+/* ===== MOBILE FULL SCREEN LAYOUT ===== */
+@media (max-width: 650px) {
+  /* ໃຫ້ layout ຫຼັກ ຕັ້ງ column ແລະ ຕ່ຳຂອງ header */
+  .app-layout {
+    flex-direction: column;
+    height: calc(100dvh - var(--header-h));
+    overflow: hidden;
+  }
+
+  /* symbol-panel ແລະ examples-panel ເປັນ overlay — ບໍ່ຢູ່ໃນ flow */
+  .symbol-panel,
+  .examples-panel {
+    position: fixed;
+    z-index: 150;
+  }
+
+  /* editor-area ຕ້ອງໃຊ້ທຸກ space ທີ່ເຫຼືອ */
+  .editor-area {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* structure-toolbar ໜ້ອຍລົງ, scroll ລ່ຽງ */
+  .structure-toolbar {
+    padding: 4px 6px;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+
+  .toolbar-group {
+    flex-shrink: 0;
+  }
+
+  /* editor-block (LaTeX input) ຂະໜາດ fixed */
+  .editor-block {
+    flex-shrink: 0;
+  }
+
+  /* preview-block ຂະຫຍາຍເຕັມ */
+  .preview-block {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* preview-canvas ຂະຫຍາຍເຕັມ */
+  .preview-canvas {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* math-field ຂະຫຍາຍເຕັມ */
+  .math-editor-wrapper {
+    flex: 1;
+    min-height: 0;
+    padding: 10px;
+  }
+
+  math-field {
+    flex: 1;
+    min-height: 0;
+    font-size: 1.3em;
+  }
+
+  /* history block ຂະໜາດ fixed ໜ້ອຍລົງ */
+  .history-block {
+    max-height: 90px;
+    flex-shrink: 0;
+  }
+}
+
 /* ===== KaTeX size in math-field ===== */
 math-field { --font-size: 1.4em; }
 math-field.inline-mode { font-size: 1.1em; }
